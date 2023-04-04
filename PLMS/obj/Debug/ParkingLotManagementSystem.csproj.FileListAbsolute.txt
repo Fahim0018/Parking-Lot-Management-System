@@ -1,0 +1,16 @@
+C:\Users\fahim-pt7044\source\repos\PLMS\PLMS\bin\Debug\PLMS.exe.config
+C:\Users\fahim-pt7044\source\repos\PLMS\PLMS\bin\Debug\PLMS.exe
+C:\Users\fahim-pt7044\source\repos\PLMS\PLMS\bin\Debug\PLMS.pdb
+C:\Users\fahim-pt7044\source\repos\PLMS\PLMS\bin\Debug\EntityFramework.dll
+C:\Users\fahim-pt7044\source\repos\PLMS\PLMS\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\fahim-pt7044\source\repos\PLMS\PLMS\bin\Debug\System.Data.SQLite.dll
+C:\Users\fahim-pt7044\source\repos\PLMS\PLMS\bin\Debug\System.Data.SQLite.EF6.dll
+C:\Users\fahim-pt7044\source\repos\PLMS\PLMS\bin\Debug\System.Data.SQLite.Linq.dll
+C:\Users\fahim-pt7044\source\repos\PLMS\PLMS\bin\Debug\EntityFramework.xml
+C:\Users\fahim-pt7044\source\repos\PLMS\PLMS\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\fahim-pt7044\source\repos\PLMS\PLMS\bin\Debug\System.Data.SQLite.xml
+C:\Users\fahim-pt7044\source\repos\PLMS\PLMS\obj\Debug\ParkingLotManagementSystem.csproj.AssemblyReference.cache
+C:\Users\fahim-pt7044\source\repos\PLMS\PLMS\obj\Debug\ParkingLotManagementSystem.csproj.CoreCompileInputs.cache
+C:\Users\fahim-pt7044\source\repos\PLMS\PLMS\obj\Debug\ParkingLotManagementSystem.csproj.CopyComplete
+C:\Users\fahim-pt7044\source\repos\PLMS\PLMS\obj\Debug\PLMS.exe
+C:\Users\fahim-pt7044\source\repos\PLMS\PLMS\obj\Debug\PLMS.pdb

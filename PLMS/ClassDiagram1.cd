@@ -1,0 +1,357 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="PLMS.Model.Admin">
+    <Position X="24.5" Y="23.25" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAgEgAABAAIAQAAAEAAAAiAAAAAAAEAAA=</HashCode>
+      <FileName>Model\Admin.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PLMS.Model.ParkingFeeStructure">
+    <Position X="24.5" Y="10.25" Width="2.25" />
+    <AssociationLine Name="parkingChargesData" Type="PLMS.Database.ParkingChargesDataAccess" FixedFromPoint="true">
+      <Path>
+        <Point X="26.75" Y="11.06" />
+        <Point X="27.792" Y="11.06" Type="JumpStart" />
+        <Point X="27.958" Y="11.06" Type="JumpEnd" />
+        <Point X="33.5" Y="11.06" />
+      </Path>
+    </AssociationLine>
+    <AssociationLine Name="vehicleData" Type="PLMS.Database.VehicleDataAccess" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="26.75" Y="10.52" />
+        <Point X="27.792" Y="10.52" Type="JumpStart" />
+        <Point X="27.958" Y="10.52" Type="JumpEnd" />
+        <Point X="33.125" Y="10.52" />
+        <Point X="33.125" Y="5.438" />
+        <Point X="33.5" Y="5.438" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.738" Y="0.06" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <AssociationLine Name="parkingSpotData" Type="PLMS.Database.ParkingSpotsDataAccess" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="26.75" Y="12.006" />
+        <Point X="27.125" Y="12.006" />
+        <Point X="27.125" Y="17.369" />
+        <Point X="33.5" Y="17.369" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AABKAAAAAAAAAiAAgAAAIAAAEAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Model\ParkingFeeStructure.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="parkingChargesData" />
+      <Field Name="vehicleData" />
+      <Field Name="parkingSpotData" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="PLMS.Model.ParkingLot">
+    <Position X="24.5" Y="0.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAEAAAAIAAAEAIAQAAAAIABQABAAQAAAAAAAAAAIAAA=</HashCode>
+      <FileName>Model\ParkingLot.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_ParkingLotDB" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="PLMS.Model.ParkingSpace">
+    <Position X="24.5" Y="13.25" Width="2" />
+    <AssociationLine Name="parkingSpaceData" Type="PLMS.Database.ParkingSpaceDataAccess" FixedFromPoint="true">
+      <Path>
+        <Point X="26.5" Y="13.776" />
+        <Point X="27.042" Y="13.776" Type="JumpStart" />
+        <Point X="27.208" Y="13.776" Type="JumpEnd" />
+        <Point X="27.792" Y="13.776" Type="JumpStart" />
+        <Point X="27.958" Y="13.776" Type="JumpEnd" />
+        <Point X="33.5" Y="13.776" />
+      </Path>
+    </AssociationLine>
+    <AssociationLine Name="parkingSpots" Type="PLMS.Database.ParkingSpotsDataAccess" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="26.5" Y="14.959" />
+        <Point X="27.042" Y="14.959" Type="JumpStart" />
+        <Point X="27.208" Y="14.959" Type="JumpEnd" />
+        <Point X="27.792" Y="14.959" Type="JumpStart" />
+        <Point X="27.958" Y="14.959" Type="JumpEnd" />
+        <Point X="34.438" Y="14.959" />
+        <Point X="34.438" Y="16.25" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.104" Y="0.066" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>oAAAASAAAAAAAAAAAAAAAAECQAASAKABAAABAAAAQAA=</HashCode>
+      <FileName>Model\ParkingSpace.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="parkingSpaceData" />
+      <Field Name="parkingSpots" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="PLMS.Model.Vehicle">
+    <Position X="24.5" Y="4.25" Width="3" />
+    <AssociationLine Name="parkingSpotsData" Type="PLMS.Database.ParkingSpotsDataAccess" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="27.5" Y="8.351" />
+        <Point X="27.875" Y="8.351" />
+        <Point X="27.875" Y="16.5" />
+        <Point X="33.5" Y="16.5" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.17" Y="0.18" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>QAAAAAEAIAEACqAAAATIAAAAAAEAgoABAQAAgABIEAA=</HashCode>
+      <FileName>Model\Vehicle.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="parkedVehicleData" />
+      <Field Name="parkingSpotsData" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="PLMS.Model.ParkingSpot">
+    <Position X="24.5" Y="18.25" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAIAAAAAgQgAAAAEAgEAAAAQEAABhAAAAAAAAAA=</HashCode>
+      <FileName>Model\ParkingSpot.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="parkingSpots" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="PLMS.ViewModel.VehicleViewModel">
+    <Position X="18" Y="6.25" Width="3.25" />
+    <AssociationLine Name="parkingFee" Type="PLMS.Model.ParkingFeeStructure" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="20.438" Y="7.93" />
+        <Point X="20.438" Y="11.542" />
+        <Point X="24.5" Y="11.542" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAAAABAAAAAAAAAAACAAAAAAAQAAAAZAAAAAAAAAAAA=</HashCode>
+      <FileName>ViewModel\VehicleViewModel.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="parkingFee" />
+      <Field Name="parkingSpaceVM" />
+      <Field Name="vehicle" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="PLMS.ViewModel.ParkingSpotViewModel">
+    <Position X="18" Y="18.75" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAABAAAAAEAAAAAAAAABAAAAAAAAAAA=</HashCode>
+      <FileName>ViewModel\ParkingSpotViewModel.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="parkingSpot" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="PLMS.ViewModel.ParkingSpaceViewModel">
+    <Position X="18.25" Y="14.25" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAgAAAAAAAAgAAAAACAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ViewModel\ParkingSpaceViewModel.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="parkingSpace" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="PLMS.ViewModel.ParkingLotViewModel">
+    <Position X="19" Y="1" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAQAAAA=</HashCode>
+      <FileName>ViewModel\ParkingLotViewModel.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_newParkingLot" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="PLMS.ViewModel.AdminViewModel">
+    <Position X="17.5" Y="23.75" Width="3.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAABAAAAAAAAEAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ViewModel\AdminViewModel.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="admin" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="PLMS.View.AdminLoginView">
+    <Position X="7.75" Y="23.25" Width="3.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAACAABAAAA=</HashCode>
+      <FileName>View\AdminLoginView.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="adminViewModel" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="PLMS.View.AddParkingSpaceView">
+    <Position X="8.25" Y="14.5" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAQAA=</HashCode>
+      <FileName>View\AddParkingSpaceView.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="parkingSpaceVM" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="PLMS.View.UserView">
+    <Position X="8.75" Y="6.25" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAgAAAAAAAAAIAAAQAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>View\UserView.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="vehicleVM" />
+      <Field Name="parkingspotVM" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="PLMS.View.ParkingLotView">
+    <Position X="9" Y="1.25" Width="4.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>View\ParkingLotView.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="parkingLot" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="PLMS.Database.ParkingLotDatabase">
+    <Position X="33.5" Y="0.5" Width="1.75" />
+    <AssociationLine Name="database" Type="PLMS.Database.DataBaseConnection" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="35.25" Y="1.374" />
+        <Point X="39.812" Y="1.374" />
+        <Point X="39.812" Y="10.5" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.11" Y="0.767" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAIABAAAAAAAAAAAQAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Database\ParkingLotDatabase.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="database" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="PLMS.Database.DataBaseConnection" Collapsed="true">
+    <Position X="38.5" Y="10.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAgAAAAAAAAAAAAAAAABAAAQAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Database\DataBaseConnection.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PLMS.Database.AdminDataAccess">
+    <Position X="33.5" Y="23.25" Width="1.5" />
+    <AssociationLine Name="database" Type="PLMS.Database.DataBaseConnection" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="35" Y="23.938" />
+        <Point X="39.688" Y="23.938" />
+        <Point X="39.688" Y="11.062" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="-0.781" Y="0.168" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAIABAAAAAAAAAAAQAAABAAAAQAAAAAAA=</HashCode>
+      <FileName>Database\AdminDataAccess.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="database" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="PLMS.Database.ParkedVehicleDataAccess">
+    <Position X="33.5" Y="6.25" Width="2" />
+    <AssociationLine Name="database" Type="PLMS.Database.DataBaseConnection" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="35.5" Y="6.938" />
+        <Point X="38.812" Y="6.938" />
+        <Point X="38.812" Y="10.5" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAAEAAAAAQAAIABACAAAAAAAAIQAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Database\ParkedVehicleDataAccess.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="database" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="PLMS.Database.ParkingChargesDataAccess">
+    <Position X="33.5" Y="9.25" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAIAAAAAAAIABAAAAAAAAAAAQAAAAAAEAAAAAAAAA=</HashCode>
+      <FileName>Database\ParkingChargesDataAccess.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="database" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="PLMS.Database.VehicleDataAccess">
+    <Position X="33.5" Y="3.5" Width="2" />
+    <AssociationLine Name="database" Type="PLMS.Database.DataBaseConnection" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="35.5" Y="4.662" />
+        <Point X="39.312" Y="4.662" />
+        <Point X="39.312" Y="10.5" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAIABAAAAAAAAAAAwAAAAAAAABEAAAAAQ=</HashCode>
+      <FileName>Database\VehicleDataAccess.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="database" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="PLMS.Database.ParkingSpotsDataAccess">
+    <Position X="33.5" Y="16.25" Width="2.25" />
+    <AssociationLine Name="database" Type="PLMS.Database.DataBaseConnection" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="35.75" Y="17.562" />
+        <Point X="39.25" Y="17.562" />
+        <Point X="39.25" Y="11.062" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.197" Y="0.11" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAIEAAIABAIAAAAgAAAAQAQAAAAAAAAAAEAAA=</HashCode>
+      <FileName>Database\ParkingSpotsDataAccess.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="database" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="PLMS.Database.ParkingSpaceDataAccess">
+    <Position X="33.5" Y="12" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAEAAEAAAAAAIABAAAAAACIAAAQAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Database\ParkingSpaceDataAccess.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="database" />
+    </ShowAsAssociation>
+  </Class>
+  <Enum Name="PLMS.Enum.VehicleCategory">
+    <Position X="19" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAQAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Enum\VehicleCategory.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
