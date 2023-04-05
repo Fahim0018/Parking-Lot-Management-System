@@ -37,9 +37,9 @@ namespace PLMS.Utils
 
         public static bool ValidateVEhicleNumber(string VehicleNumber)
         {
-            Regex p = new Regex(regexVehicleNumber);
-            Match m = p.Match(VehicleNumber);
-            return m.Success;
+            Regex pattern = new Regex(regexVehicleNumber);
+            Match match = pattern.Match(VehicleNumber);
+            return match.Success;
             
 
         }
@@ -55,9 +55,9 @@ namespace PLMS.Utils
 
                     break;
                 }
-                catch (Exception e)
+                catch (Exception exception)
                 {
-                    StyleMessage(e.Message, ConsoleColor.Red, ConsoleColor.White);
+                    StyleMessage(exception.Message, ConsoleColor.Red, ConsoleColor.White);
                 }
             }
             return input;
@@ -169,7 +169,7 @@ namespace PLMS.Utils
                 }
                 catch (Exception e)
                 {
-                    Utility.StyleMessage(e.Message, ConsoleColor.Red, ConsoleColor.White);
+                    StyleMessage(e.Message, ConsoleColor.Red, ConsoleColor.White);
                 }
             }
             return input;

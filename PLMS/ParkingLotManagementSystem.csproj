@@ -71,13 +71,12 @@
     <Compile Include="Database\ParkingSpotsDataAccess.cs" />
     <Compile Include="Database\QueryConstants.cs" />
     <Compile Include="Database\VehicleDataAccess.cs" />
-    <Compile Include="Enum\UpdateOperation.cs" />
+    <Compile Include="Enum\Enums.cs" />
     <Compile Include="Model\Admin.cs" />
     <Compile Include="Model\ParkingFeeStructure.cs" />
     <Compile Include="Model\ParkingLot.cs" />
     <Compile Include="Model\ParkingSpace.cs" />
     <Compile Include="Model\ParkingSpot.cs" />
-    <Compile Include="Enum\VehicleCategory.cs" />
     <Compile Include="Model\Vehicle.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

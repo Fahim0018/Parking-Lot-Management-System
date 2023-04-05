@@ -88,7 +88,7 @@ namespace PLMS.Model
             }
         }
         
-        public void UpdateParkingSpace(VehicleCategory vehicleCategory, int floor, UpdateOperation updateType, int space)
+        public void UpdateParkingSpace(VehicleCategory vehicleCategory, int floor, UpdateParkingSpace updateType, int space)
         {
             parkingSpaceData.UpdateParkingSpaceInDB(vehicleCategory, floor, updateType, space);
         }

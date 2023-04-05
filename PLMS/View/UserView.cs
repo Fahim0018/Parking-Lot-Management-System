@@ -79,19 +79,18 @@ namespace PLMS.View
 
                                 vehicleVM.vehicle.VehicleInDateTime = DateTime.Now;
                                 vehicleVM.vehicle.IsParked = true;
-                                (bool result, int spot, int floor) = vehicleVM.VehicleEntry(vehicleVM.vehicle);
+                                (bool result, ParkingSpot parkingSpot) = vehicleVM.VehicleEntry(vehicleVM.vehicle);
                                 if (!result)
                                 {
-                                    if (floor != 0)
+                                    if (parkingSpot.Floor != 0)
                                     {
-                                        Utility.StyleMessage($"\nYour Parking Spot is Floor {floor} Spot {spot}", ConsoleColor.DarkGreen, ConsoleColor.White);
-                                        flag1 = 1;
+                                        Utility.StyleMessage($"\nYour Parking Spot is Floor {parkingSpot.Floor} Spot {parkingSpot.ParkingSpotID}", ConsoleColor.DarkGreen, ConsoleColor.White);           
                                     }
                                     else
                                     {
-                                        Utility.StyleMessage("\nNo Space Available!!", ConsoleColor.Red, ConsoleColor.White);
-
+                                        Utility.StyleMessage("\nNo Space Available!!", ConsoleColor.Red, ConsoleColor.White);                            
                                     }
+                                    flag1 = 1;
                                 }
                                 else
                                 {

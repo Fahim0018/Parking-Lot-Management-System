@@ -78,7 +78,7 @@ namespace PLMS.Database
             }
         }
 
-        public ( int, int) GetParkedVehicleDetails(string VehicleNumber)
+        public ParkingSpot GetParkedVehicleDetails(string VehicleNumber)
         {
             database.OpenConnection();
             lock (locker)
@@ -86,25 +86,27 @@ namespace PLMS.Database
                
                 using (command = database.MySqliteConnection.CreateCommand())
                 {
-                    
+                    ParkingSpot parkingSpot = new ParkingSpot();
+                    ParkingSpotsDataAccess parkingSpotsData = new ParkingSpotsDataAccess();
                     command.CommandText = QueryConstants.GetParkedVehicleDetails;
                     command.Parameters.AddWithValue("$vehicleNumber", VehicleNumber);
                     SQLiteDataReader reader = command.ExecuteReader();
                     if (reader.HasRows)
                     {
                         reader.Read();
-                        int floor = reader.GetInt32(3);
-                        int spotid = reader.GetInt32(2);
+                        parkingSpot.Floor = reader.GetInt32(3);
+                        parkingSpot.ParkingSpotID = reader.GetInt32(2);
                         reader.Close();
+                        parkingSpot.SpotCategory = parkingSpotsData.GetParkingSpotCategory(parkingSpot.ParkingSpotID, parkingSpot.Floor);
                         database.CloseConnection();
-                        return ( floor, spotid);
+                        return parkingSpot;
                        
                     }
                     else
                     {
                         reader.Close();
                         database.CloseConnection();
-                        return ( 0, 0);
+                        return null;
                     }
                 }
             }

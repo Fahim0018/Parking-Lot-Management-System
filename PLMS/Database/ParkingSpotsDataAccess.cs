@@ -12,9 +12,9 @@ namespace PLMS.Database
 
         SQLiteCommand command;
 
-        public void PopulateParkingSpots(int Floor,ParkingSpaceDataAccess parkingSpace)
+        public void PopulateParkingSpots(int Floor,ParkingSpaceDataAccess parkingSpaceData)
         {
-                (int floor, int bikespace, int carspace, int busspace) = parkingSpace.GetParkingSpaceDetailsFromDB(Floor);
+                ParkingSpace parkingSpace = parkingSpaceData.GetParkingSpaceDetailsFromDB(Floor);
                 database.OpenConnection();
            
                 
@@ -22,10 +22,10 @@ namespace PLMS.Database
                 {
    
                     int spotnumber = 1;
-                    while (spotnumber<= bikespace)
+                    while (spotnumber<= parkingSpace.SpaceForBike)
                     {
                         command.CommandText = QueryConstants.InsertParkingSpotDetails;
-                        command.Parameters.AddWithValue("$floor", floor);
+                        command.Parameters.AddWithValue("$floor", parkingSpace.FloorNumber);
                         command.Parameters.AddWithValue("$parkingspotnumber", spotnumber);
                         command.Parameters.AddWithValue("$parkingspotcategory", VehicleCategory.Bike);
                         command.Parameters.AddWithValue("$isoccupied", 0);
@@ -33,20 +33,20 @@ namespace PLMS.Database
                         spotnumber += 1;
 
                     }
-                    while (spotnumber <= (bikespace + carspace))
+                    while (spotnumber <= (parkingSpace.SpaceForBike + parkingSpace.SpaceForCar))
                     {
                         command.CommandText = QueryConstants.InsertParkingSpotDetails;
-                        command.Parameters.AddWithValue("$floor", floor);
+                        command.Parameters.AddWithValue("$floor", parkingSpace.FloorNumber);
                         command.Parameters.AddWithValue("$parkingspotnumber", spotnumber);
                         command.Parameters.AddWithValue("$parkingspotcategory", VehicleCategory.Car);
                         command.Parameters.AddWithValue("$isoccupied", 0);
                         command.ExecuteNonQuery();
                         spotnumber += 1;
                     }
-                    while (spotnumber <= (bikespace + carspace+busspace))
+                    while (spotnumber <= (parkingSpace.SpaceForBike+ parkingSpace.SpaceForCar+parkingSpace.SpaceForBus))
                     {
                         command.CommandText = QueryConstants.InsertParkingSpotDetails;
-                        command.Parameters.AddWithValue("$floor", floor);
+                        command.Parameters.AddWithValue("$floor", parkingSpace.FloorNumber);
                         command.Parameters.AddWithValue("$parkingspotnumber", spotnumber);
                         command.Parameters.AddWithValue("$parkingspotcategory", VehicleCategory.Bus);
                         command.Parameters.AddWithValue("$isoccupied", 0);
@@ -61,7 +61,7 @@ namespace PLMS.Database
             }
         }
 
-        public (int,int) AllotParkingSpotFromDB(Vehicle vehicle)
+        public ParkingSpot AllotParkingSpotFromDB(Vehicle vehicle)
         {
             database.OpenConnection();
             lock (locker)
@@ -69,7 +69,7 @@ namespace PLMS.Database
                 
                 using (command = database.MySqliteConnection.CreateCommand()) {
                     
-                    ParkingSpot parkingspot = new ParkingSpot();
+                    ParkingSpot parkingSpot = new ParkingSpot();
                     command.CommandText = QueryConstants.AllotParkingSpot;
                     if (vehicle.VehicleCategory == VehicleCategory.Bike  )
                     {
@@ -89,18 +89,32 @@ namespace PLMS.Database
                         if (reader.GetInt32(3).Equals(0))
                         {
                             
-                            parkingspot.ParkingSpotID = reader.GetInt32(1);
-                            parkingspot.Floor = reader.GetInt32(0);
+                            parkingSpot.ParkingSpotID = reader.GetInt32(1);
+                            parkingSpot.Floor = reader.GetInt32(0);
+                            if (int.Parse(reader["ParkingSpotCategory"].ToString()).Equals(0))
+                            {
+                                parkingSpot.SpotCategory = VehicleCategory.Bike;
+                            }
+                            else if (int.Parse(reader["ParkingSpotCategory"].ToString()).Equals(1))
+                            {
+                                parkingSpot.SpotCategory = VehicleCategory.Car;
+                            }
+
+                            else if (int.Parse(reader["ParkingSpotCategory"].ToString()).Equals(2))
+                            {
+                                parkingSpot.SpotCategory = VehicleCategory.Bus;
+
+                            }
                             ParkedVehicleDataAccess parkedVehicleTable = new ParkedVehicleDataAccess();
                             reader.Close();
                             database.CloseConnection();
-                            parkedVehicleTable.ParkVehicle(vehicle, parkingspot);
-                            UpdateParkingSpotInDB(parkingspot.Floor, parkingspot.ParkingSpotID, true);
+                            parkedVehicleTable.ParkVehicle(vehicle, parkingSpot);
+                            UpdateParkingSpotInDB(parkingSpot, true);
                             break;
                         }
 
                     }
-                    if(parkingspot.ParkingSpotID==0 && parkingspot.Floor == 0 && vehicle.VehicleCategory==VehicleCategory.Bike)
+                    if(parkingSpot.ParkingSpotID==0 && parkingSpot.Floor == 0 && vehicle.VehicleCategory==VehicleCategory.Bike)
                     {
                         database.OpenConnection();
                         lock (locker)
@@ -117,13 +131,27 @@ namespace PLMS.Database
                                     if (reader.GetInt32(3).Equals(0))
                                     {
 
-                                        parkingspot.ParkingSpotID = reader.GetInt32(1);
-                                        parkingspot.Floor = reader.GetInt32(0);
+                                        parkingSpot.ParkingSpotID = reader.GetInt32(1);
+                                        parkingSpot.Floor = reader.GetInt32(0);
+                                        if (int.Parse(reader["ParkingSpotCategory"].ToString()).Equals(0))
+                                        {
+                                            parkingSpot.SpotCategory = VehicleCategory.Bike;
+                                        }
+                                        else if (int.Parse(reader["ParkingSpotCategory"].ToString()).Equals(1))
+                                        {
+                                            parkingSpot.SpotCategory = VehicleCategory.Car;
+                                        }
+
+                                        else if (int.Parse(reader["ParkingSpotCategory"].ToString()).Equals(2))
+                                        {
+                                            parkingSpot.SpotCategory = VehicleCategory.Bus;
+
+                                        }
                                         ParkedVehicleDataAccess parkedVehicleTable = new ParkedVehicleDataAccess();
                                         reader.Close();
                                         database.CloseConnection();
-                                        parkedVehicleTable.ParkVehicle(vehicle, parkingspot);
-                                        UpdateParkingSpotInDB(parkingspot.Floor, parkingspot.ParkingSpotID, true);
+                                        parkedVehicleTable.ParkVehicle(vehicle, parkingSpot);
+                                        UpdateParkingSpotInDB(parkingSpot, true);
                                         break;
                                     }
 
@@ -133,7 +161,7 @@ namespace PLMS.Database
                             }
                         }
                     }
-                    if (parkingspot.ParkingSpotID == 0 && parkingspot.Floor == 0 && vehicle.VehicleCategory == VehicleCategory.Car)
+                    if (parkingSpot.ParkingSpotID == 0 && parkingSpot.Floor == 0 && vehicle.VehicleCategory == VehicleCategory.Car)
                     {
                         database.OpenConnection();
                         lock (locker)
@@ -150,13 +178,27 @@ namespace PLMS.Database
                                     if (reader.GetInt32(3).Equals(0))
                                     {
 
-                                        parkingspot.ParkingSpotID = reader.GetInt32(1);
-                                        parkingspot.Floor = reader.GetInt32(0);
+                                        parkingSpot.ParkingSpotID = reader.GetInt32(1);
+                                        parkingSpot.Floor = reader.GetInt32(0);
+                                        if (int.Parse(reader["ParkingSpotCategory"].ToString()).Equals(0))
+                                        {
+                                            parkingSpot.SpotCategory = VehicleCategory.Bike;
+                                        }
+                                        else if (int.Parse(reader["ParkingSpotCategory"].ToString()).Equals(1))
+                                        {
+                                            parkingSpot.SpotCategory = VehicleCategory.Car;
+                                        }
+
+                                        else if (int.Parse(reader["ParkingSpotCategory"].ToString()).Equals(2))
+                                        {
+                                            parkingSpot.SpotCategory = VehicleCategory.Bus;
+
+                                        }
                                         ParkedVehicleDataAccess parkedVehicleTable = new ParkedVehicleDataAccess();
                                         reader.Close();
                                         database.CloseConnection();
-                                        parkedVehicleTable.ParkVehicle(vehicle, parkingspot);
-                                        UpdateParkingSpotInDB(parkingspot.Floor, parkingspot.ParkingSpotID, true);
+                                        parkedVehicleTable.ParkVehicle(vehicle, parkingSpot);
+                                        UpdateParkingSpotInDB(parkingSpot, true);
                                         break;
                                     }
 
@@ -167,14 +209,14 @@ namespace PLMS.Database
                         }
                     }
 
-                    return (parkingspot.ParkingSpotID, parkingspot.Floor);
+                    return parkingSpot;
                 }
                 
 
             }
         }
 
-        public void UpdateParkingSpotInDB(int floor , int spotID, bool IsOccupied)
+        public void UpdateParkingSpotInDB(ParkingSpot parkingSpot,bool IsOccupied)
         {
             database.OpenConnection();
             lock (locker)
@@ -184,7 +226,7 @@ namespace PLMS.Database
                 {
                    
                     command.CommandText = QueryConstants.UpdateParkingSpot;
-                    command.Parameters.AddWithValue("$floor", floor);
+                    command.Parameters.AddWithValue("$floor", parkingSpot.Floor);
                     if (IsOccupied == true)
                     {
                         command.Parameters.AddWithValue("$isOccupied", 1);
@@ -193,7 +235,7 @@ namespace PLMS.Database
                     {
                         command.Parameters.AddWithValue("$isOccupied", 0);
                     }
-                    command.Parameters.AddWithValue("$parkingSpotNumber", spotID);
+                    command.Parameters.AddWithValue("$parkingSpotNumber", parkingSpot.ParkingSpotID);
                     command.ExecuteNonQuery();
                     
                 }

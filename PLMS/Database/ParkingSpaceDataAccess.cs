@@ -33,7 +33,7 @@ namespace PLMS.Database
             
         }
 
-        public (int,int,int,int) GetParkingSpaceDetailsFromDB(int Floor)
+        public ParkingSpace GetParkingSpaceDetailsFromDB(int Floor)
         {
             
                 database.OpenConnection();
@@ -47,15 +47,18 @@ namespace PLMS.Database
                     SQLiteDataReader reader = command.ExecuteReader();
                     if (reader.Read())
                     {
-                        int floor = reader.GetInt32(0);
-                        int bikespace = reader.GetInt32(1);
-                        int carspcae = reader.GetInt32(2);
-                        int busspace = reader.GetInt32(3);
+                         ParkingSpace parkingSpace = new ParkingSpace
+                         {
+                            FloorNumber = reader.GetInt32(0),
+                            SpaceForBike = reader.GetInt32(1),
+                            SpaceForCar = reader.GetInt32(2),
+                            SpaceForBus = reader.GetInt32(3)
+                         };
 
                         reader.Close();
                         database.CloseConnection();
                         
-                        return (floor, bikespace, carspcae, busspace);
+                        return parkingSpace;
                        
 
                     }
@@ -64,7 +67,7 @@ namespace PLMS.Database
                         reader.Close();
                         database.CloseConnection();
 
-                        return (0,0,0,0);
+                        return null;
                     }
 
                 }
@@ -73,12 +76,12 @@ namespace PLMS.Database
         
         }
 
-        public void UpdateParkingSpaceInDB(VehicleCategory spacetype,int floor,UpdateOperation updateType,int space)
+        public void UpdateParkingSpaceInDB(VehicleCategory spacetype,int floor,UpdateParkingSpace updateType,int space)
         {
             database.OpenConnection();
             lock (locker)
             {
-                if (updateType== UpdateOperation.Decrease)
+                if (updateType== UpdateParkingSpace.Decrease)
                 {
                    
                     using (command = database.MySqliteConnection.CreateCommand())
@@ -109,7 +112,7 @@ namespace PLMS.Database
                         database.CloseConnection();
                     }
                 }
-                else if (updateType == UpdateOperation.Increase)
+                else if (updateType == UpdateParkingSpace.Increase)
                 {
                     
                     using (command = database.MySqliteConnection.CreateCommand())

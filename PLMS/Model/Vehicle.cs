@@ -122,37 +122,37 @@ namespace PLMS.Model
             vehicleData = new VehicleDataAccess();
             parkedVehicleData = new ParkedVehicleDataAccess();
             parkingSpotsData = new ParkingSpotsDataAccess();
-
         }
 
 
 
-        public (VehicleCategory,int,int) VehicleEntryInParkingLot(Vehicle vehicle)
+        public ParkingSpot VehicleEntryInParkingLot(Vehicle vehicle)
         {
             
             vehicleData.InsertVehicleInDB(vehicle);
-            (int spot, int floor) = parkingSpotsData.AllotParkingSpotFromDB(vehicle);
-            VehicleCategory ParkingSpotCategory = parkingSpotsData.GetParkingSpotCategory(spot, floor);
-            if (floor == 0)
+             
+            ParkingSpot parkingSpot = parkingSpotsData.AllotParkingSpotFromDB(vehicle);
+
+            if (parkingSpot.Floor == 0)
             {
-                vehicleData.DeleteVehicleFromTable(vehicle.VehicleLicenceNumber);
-                
-                return (VehicleCategory.None,spot, floor);
+                vehicleData.DeleteVehicleFromTable(vehicle.VehicleLicenceNumber);               
+                return (parkingSpot);
             }
-            return (ParkingSpotCategory, spot, floor);
+            return (parkingSpot);
 
         }
 
 
 
-        public (int,int,VehicleCategory) VehicleExitFromParkingLot(string vehicleLicenceNumber)
+        public ParkingSpot VehicleExitFromParkingLot(string vehicleLicenceNumber)
         {
-            vehicleData.UpdateParkingDetails(vehicleLicenceNumber);
-            ( int Floor, int SpotID) = parkedVehicleData.GetParkedVehicleDetails(vehicleLicenceNumber);
-            parkingSpotsData.UpdateParkingSpotInDB(Floor, SpotID, false);
+            
+            vehicleData.UpdateParkingDetails(vehicleLicenceNumber);          
+            ParkingSpot parkingSpot = parkedVehicleData.GetParkedVehicleDetails(vehicleLicenceNumber);
+            parkingSpotsData.UpdateParkingSpotInDB(parkingSpot,false);
             parkedVehicleData.RemoveVehicle(vehicleLicenceNumber);
-            VehicleCategory ParkingSpotCategory = parkingSpotsData.GetParkingSpotCategory(SpotID, Floor);
-            return ( Floor, SpotID, ParkingSpotCategory);
+            
+            return parkingSpot;
         }
 
 
@@ -162,7 +162,6 @@ namespace PLMS.Model
             if (parkedVehicleData.CheckForVehicleInDB(VehicleLicenceNumber))
             {
                 return true;
-
             }
             else
             {

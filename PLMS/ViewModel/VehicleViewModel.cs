@@ -23,34 +23,35 @@ namespace PLMS.ViewModel
         
 
 
-        public (bool,int,int) VehicleEntry(Vehicle Vehicle)
-        {         
+        public (bool,ParkingSpot) VehicleEntry(Vehicle Vehicle)
+        {      
+            
             if (!CheckForVehicle(Vehicle.VehicleLicenceNumber))
             {
                           
-                (VehicleCategory parkingSpotCategory,int spot ,int floor) = vehicle.VehicleEntryInParkingLot(Vehicle);
+                ParkingSpot parkingSpot = vehicle.VehicleEntryInParkingLot(Vehicle);
 
-                if (parkingSpotCategory == VehicleCategory.Bike)
+                if (parkingSpot.SpotCategory == VehicleCategory.Bike)
                 {
-                    parkingSpaceVM.UpdateParkingSpace(VehicleCategory.Bike, floor, UpdateOperation.Decrease, 1);
+                    parkingSpaceVM.UpdateParkingSpace(VehicleCategory.Bike, parkingSpot.Floor, UpdateParkingSpace.Decrease, 1);
                 }
-                if (parkingSpotCategory == VehicleCategory.Car)
+                if (parkingSpot.SpotCategory == VehicleCategory.Car)
                 {
-                    parkingSpaceVM.UpdateParkingSpace(VehicleCategory.Car, floor, UpdateOperation.Decrease, 1);
+                    parkingSpaceVM.UpdateParkingSpace(VehicleCategory.Car, parkingSpot.Floor, UpdateParkingSpace.Decrease, 1);
                 }
-                if (parkingSpotCategory == VehicleCategory.Bus)
+                if (parkingSpot.SpotCategory == VehicleCategory.Bus)
                 {
-                    parkingSpaceVM.UpdateParkingSpace(VehicleCategory.Bus, floor, UpdateOperation.Decrease, 1);
+                    parkingSpaceVM.UpdateParkingSpace(VehicleCategory.Bus, parkingSpot.Floor, UpdateParkingSpace.Decrease, 1);
                 }
-                if (parkingSpotCategory == VehicleCategory.None)
+                if (parkingSpot.SpotCategory == VehicleCategory.None)
                 {
-                    parkingSpaceVM.UpdateParkingSpace(VehicleCategory.Bike, floor, UpdateOperation.Decrease, 0);
+                    parkingSpaceVM.UpdateParkingSpace(VehicleCategory.Bike, parkingSpot.Floor, UpdateParkingSpace.Decrease, 0);
                 }
-                return (false,spot,floor);
+                return (false, parkingSpot);
             }
             else
             {
-                return (true,0,0);
+                return (true,null);
             }
 
         }
@@ -58,21 +59,21 @@ namespace PLMS.ViewModel
 
         public decimal VehicleExit(string vehicleLicenceNumber)
         {
-            ( int Floor, int SpotID,VehicleCategory ParkingSpotCategory) = vehicle.VehicleExitFromParkingLot(vehicleLicenceNumber);           
-            if (ParkingSpotCategory == VehicleCategory.Bike)
+            ParkingSpot parkingSpot = vehicle.VehicleExitFromParkingLot(vehicleLicenceNumber);           
+            if (parkingSpot.SpotCategory == VehicleCategory.Bike)
             {
-                parkingSpaceVM.UpdateParkingSpace(VehicleCategory.Bike, Floor, UpdateOperation.Increase, 1);
+                parkingSpaceVM.UpdateParkingSpace(VehicleCategory.Bike, parkingSpot.Floor, UpdateParkingSpace.Increase, 1);
             }
-            else if (ParkingSpotCategory == VehicleCategory.Car)
+            else if (parkingSpot.SpotCategory == VehicleCategory.Car)
             {
-                parkingSpaceVM.UpdateParkingSpace(VehicleCategory.Car, Floor, UpdateOperation.Increase, 1);
+                parkingSpaceVM.UpdateParkingSpace(VehicleCategory.Car, parkingSpot.Floor, UpdateParkingSpace.Increase, 1);
             }
-            else if (ParkingSpotCategory == VehicleCategory.Bus)
+            else if (parkingSpot.SpotCategory == VehicleCategory.Bus)
             {
-                parkingSpaceVM.UpdateParkingSpace(VehicleCategory.Bus, Floor, UpdateOperation.Increase, 1);
+                parkingSpaceVM.UpdateParkingSpace(VehicleCategory.Bus, parkingSpot.Floor, UpdateParkingSpace.Increase, 1);
             }
            
-            return parkingFee.CalculateParkingFee(vehicleLicenceNumber,SpotID,Floor);
+            return parkingFee.CalculateParkingFee(vehicleLicenceNumber,parkingSpot.ParkingSpotID, parkingSpot.Floor);
         }
 
 
